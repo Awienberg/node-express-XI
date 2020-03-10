@@ -55,6 +55,9 @@ td {
     padding: 3px;
     width: 20%;
 }
+#weather{
+    border: 1px solid #202020;
+}
 button {
     background-color: #202020;
     border: none;

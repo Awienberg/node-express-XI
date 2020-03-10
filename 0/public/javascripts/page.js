@@ -124,16 +124,9 @@ const showWeather = function (e) {
     let txt = document.createTextNode('How is the weather');
     h3.appendChild(txt);
     div.appendChild(h3);
-    let weather = JSON.parse(e.target.responseText);
-    let sel = document.createElement('div');
-    sel.setAttribute('id', 'currentWeather');
-    weather.forEach(function(main) {
-        let temp = document.createElement('p');
-        let opttext = document.createTextNode(main.temp);
-        temp.appendChild(opttext);
-        sel.appendChild(opt);
-    });
-    div.appendChild(sel);
+    
+    //Weather stuff
+    
     $("weatherdata").appendChild(div);
 };
 
