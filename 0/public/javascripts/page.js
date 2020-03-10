@@ -20,6 +20,11 @@ const getCities = function(ev) {
     req.init();
     req.getFile(`/cities/${ev.target.value}`, showCities);
 };
+const getWeather = function(ev) {
+    let req = Object.create(Ajax);
+    req.init();
+    req.getFile("http://api.openweathermap.org/data/2.5/weather?q="+`${ev.target.value}`+"&appid=326f0c938795278b3996cca76932457c", showWeather);
+};
 /*
  * callback function for the above AJaX
  */
@@ -97,6 +102,7 @@ const showCities = function (e) {
     cities.forEach(function(city) {
         let opt = document.createElement('button');
         let opttext = document.createTextNode(city.name);
+        opt.addEventListener('click', getWeather);
         opt.appendChild(opttext);
         sel.appendChild(opt);
     });
@@ -104,9 +110,35 @@ const showCities = function (e) {
     $("citydata").appendChild(div);
 };
 
+const showWeather = function (e) {
+    /*
+     * here you put the ajax response onto your page DOM
+     */
+    console.log(e.target.getResponseHeader("Content-Type"));
+    let element = $("weatherdata");
+    while (element.firstChild) {
+        element.removeChild(element.firstChild);
+    }
+    let div = document.createElement("div");
+    let h3 = document.createElement('h3');
+    let txt = document.createTextNode('How is the weather');
+    h3.appendChild(txt);
+    div.appendChild(h3);
+    let weather = JSON.parse(e.target.responseText);
+    let sel = document.createElement('div');
+    sel.setAttribute('id', 'currentWeather');
+    weather.forEach(function(main) {
+        let temp = document.createElement('p');
+        let opttext = document.createTextNode(main.temp);
+        temp.appendChild(opttext);
+        sel.appendChild(opt);
+    });
+    div.appendChild(sel);
+    $("weatherdata").appendChild(div);
+};
+
 const showStarter = function () {
     $('gcont').addEventListener('click', getContinents);
-    $('chosenCity').appendChild('click', getCity);
 }
 
 window.addEventListener("load", showStarter);                   // kick off JS

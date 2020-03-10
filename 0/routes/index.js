@@ -34,4 +34,8 @@ router.get('/cities/:city', async function(req, res, next) {
     res.json(cities);
 });
 
+router.get('/weather', async function(req, res, next) {
+
+});
+
 module.exports = router;
